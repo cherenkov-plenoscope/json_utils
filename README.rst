@@ -1,7 +1,7 @@
 ##########
 Json-utils
 ##########
-|TestStatus| |PyPiStatus| |BlackStyle|
+|TestStatus| |PyPiStatus| |BlackStyle| |PackStyleBlack|
 
 *****
 numpy
@@ -28,3 +28,5 @@ JSON-lines or ``.jsonl`` is a powerful extension to the JSON-family.
 .. |BlackStyle| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 
+.. |PackStyleBlack| image:: https://img.shields.io/badge/pack%20style-black-000000.svg
+    :target: https://github.com/cherenkov-plenoscope/black_pack

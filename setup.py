@@ -19,14 +19,20 @@ setuptools.setup(
     author_email="sebastian-achim.mueller@mpi-hd.mpg.de",
     description="JSON-lines and recursive reading of json-files in a path.",
     long_description=long_description,
-    long_description_content_type="text/markdown",
+    long_description_content_type="text/x-rst",
     url="https://github.com/cherenkov-plenoscope/json_utils",
     classifiers=[
+        "Natural Language :: English",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    packages=["json_utils",],
-    install_requires=["json_numpy_sebastian-achim-mueller",],
+    package_data={"json_utils": []},
+    packages=[
+        "json_utils",
+    ],
+    install_requires=[
+        "json_numpy_sebastian-achim-mueller",
+    ],
     python_requires=">=3.0",
 )

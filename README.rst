@@ -1,7 +1,7 @@
 ##########
 Json-utils
 ##########
-|TestStatus| |PyPiStatus| |BlackStyle| |PackStyleBlack|
+|TestStatus| |PyPiStatus| |BlackStyle| |BlackPackStyle| |MITLicenseBadge|
 
 *****
 numpy
@@ -11,7 +11,7 @@ Uses ``json_numpy`` for transparent ``loads`` and ``dumps`` of lists into numpy-
 *****
 trees
 *****
-Recursively read all ``.json`` files in a path and return a single ``dict``.
+Recursively read (or write) ``.json`` files in a tree of directories.
 
 *****
 lines
@@ -28,5 +28,8 @@ JSON-lines or ``.jsonl`` is a powerful extension to the JSON-family.
 .. |BlackStyle| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 
-.. |PackStyleBlack| image:: https://img.shields.io/badge/pack%20style-black-000000.svg
+.. |BlackPackStyle| image:: https://img.shields.io/badge/pack%20style-black-000000.svg
     :target: https://github.com/cherenkov-plenoscope/black_pack
+
+.. |MITLicenseBadge| image:: https://img.shields.io/badge/License-MIT-yellow.svg
+    :target: https://opensource.org/licenses/MIT

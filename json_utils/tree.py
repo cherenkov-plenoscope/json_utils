@@ -48,15 +48,7 @@ def read_with_dirtree(path):
         file_path, file_extension = os.path.splitext(_path)
         file_basename = os.path.basename(file_path)
         if str.lower(file_extension) == ".json":
-            obj = read_single_json_file(_path)
-            if isinstance(obj, list):
-                tmp = numpy.array(obj)
-                if tmp.dtype.str[1:] in json_numpy.VALID_DTYPES:
-                    out[file_basename] = tmp
-                else:
-                    out[file_basename] = obj
-            else:
-                out[file_basename] = obj
+            out[file_basename] = read_single_json_file(_path)
         if os.path.isdir(_path):
             out[file_basename], dirtree[file_basename] = read_with_dirtree(
                 path=_path

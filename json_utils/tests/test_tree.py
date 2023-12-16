@@ -26,6 +26,16 @@ def _write_dummy(path, n):
     json_utils.write(path, dummy)
 
 
+def _write_dummy_list_only(path, n):
+    dummy = [n, n + 1, n + 2]
+    json_utils.write(path, dummy)
+
+
+def _write_dummy_list_only_no_numpy(path, n):
+    dummy = ["{:d}".format(n + i) for i in range(3)]
+    json_utils.write(path, dummy)
+
+
 def _make_dummy_tree(tmp):
     tmp_A = os.path.join(tmp, "A")
     tmp_B = os.path.join(tmp, "B")
@@ -47,6 +57,10 @@ def _make_dummy_tree(tmp):
     _write_dummy(os.path.join(tmp_AD, "a.json"), 6)
     _write_dummy(os.path.join(tmp_AD, "aa.json"), 7)
     _write_dummy(os.path.join(tmp_AD, "aaa.json"), 8)
+    _write_dummy_list_only(os.path.join(tmp_AD, "lll.json"), 9)
+    _write_dummy_list_only_no_numpy(
+        os.path.join(tmp_AD, "lll_no_numpy.json"), 1337
+    )
 
     # tmp_B has no json-file but a directory which contains a json-file.
     _write_dummy(os.path.join(tmp_BR, "rrr.json"), 9)
@@ -82,6 +96,14 @@ def _assert_dummy_tree(tree):
 
     assert r["A"]["D"]["aaa"]["8"] == 8
     assert r["A"]["D"]["aaa"]["9"] == 9
+
+    assert r["A"]["D"]["lll"][0] == 9
+    assert r["A"]["D"]["lll"][1] == 10
+    assert r["A"]["D"]["lll"][2] == 11
+
+    assert r["A"]["D"]["lll_no_numpy"][0] == "1337"
+    assert r["A"]["D"]["lll_no_numpy"][1] == "1338"
+    assert r["A"]["D"]["lll_no_numpy"][2] == "1339"
 
     assert len(r["B"]) == 1
     assert "R" in r["B"]

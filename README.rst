@@ -18,6 +18,18 @@ lines
 *****
 JSON-lines or ``.jsonl`` is a powerful extension to the JSON-family.
 
+.. code-block:: python
+
+    import json_utils as ju
+
+    with ju.lines.open("my-items.jsonl.gz", mode="w|gz") as jl:
+        for i in range(100):
+            jl.write({"number": i})
+
+    with ju.lines.open("my-items.jsonl.gz", mode="r|gz") as jl:
+        for obj in jl:
+            print("item", obj["number"])
+
 
 .. |TestStatus| image:: https://github.com/cherenkov-plenoscope/json_utils/actions/workflows/test.yml/badge.svg?branch=main
     :target: https://github.com/cherenkov-plenoscope/json_utils/actions/workflows/test.yml

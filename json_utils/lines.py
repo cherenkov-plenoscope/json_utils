@@ -57,10 +57,7 @@ class Reader:
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        self.close()
-
-    def close(self):
-        self.file.close()
+        pass
 
     def __iter__(self):
         return self
@@ -83,10 +80,7 @@ class Writer:
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        self.close()
-
-    def close(self):
-        self.file.close()
+        pass
 
     def write(self, obj):
         line = json_numpy.dumps(obj, indent=None)

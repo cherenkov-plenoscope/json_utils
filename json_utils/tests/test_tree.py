@@ -139,3 +139,10 @@ def test_tree_complex():
 
         _assert_dummy_tree(tree=tree2)
         _assert_dummy_dirtree(dirtree=dirtree2)
+
+
+def test_lazy_tree_complex():
+    with tempfile.TemporaryDirectory() as tmp:
+        _make_dummy_tree(tmp=tmp)
+        tree = json_utils.tree.Tree(tmp)
+        _assert_dummy_tree(tree=tree)

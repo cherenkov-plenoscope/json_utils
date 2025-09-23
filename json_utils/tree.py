@@ -5,6 +5,62 @@ from .utils import read as read_single_json_file
 from .utils import write as write_single_json_file
 
 
+class Tree:
+    def __init__(self, path):
+        """
+        Lazy reader for a directory tree of json files. Reads json file only
+        when needed.
+
+        Parameters
+        ----------
+        path : str
+            Path to directory of json files or json files.
+        """
+        self._path = path
+        self._cache = {}
+
+    def keys(self):
+        all_paths = glob.glob(os.path.join(self._path, "*"))
+        keys = []
+        for _path in all_paths:
+            if _path.endswith(".json"):
+                file_path, file_extension = os.path.splitext(_path)
+                file_basename = os.path.basename(file_path)
+                keys.append(file_basename)
+            elif os.path.isdir(_path):
+                file_basename = os.path.basename(_path)
+                keys.append(file_basename)
+        return keys
+
+    def __len__(self):
+        return len(self.keys())
+
+    def __contains__(self, key):
+        return key in self.keys()
+
+    def __getitem__(self, key):
+        file_candidate = os.path.join(self._path, key + ".json")
+        dir_candidate = os.path.join(self._path, key)
+        if os.path.isfile(file_candidate):
+            if key not in self._cache:
+                self._cache[key] = read_single_json_file(path=file_candidate)
+        elif os.path.isdir(dir_candidate):
+            if key not in self._cache:
+                self._cache[key] = Tree(path=dir_candidate)
+
+        try:
+            out = self._cache[key]
+        except KeyError as err:
+            skeys = str.join(", ", self.keys())
+            msg = f"Key '{key:s}' not in [{skeys:s}]."
+            raise KeyError(msg)
+
+        return out
+
+    def __repr__(self):
+        return f"{self.__class__.__name__:s}(path={self._path:s})"
+
+
 def read(path):
     """
     Walks down a directory and reads every json-file into an object.

@@ -19,6 +19,9 @@ class Tree:
         self._path = path
         self._cache = {}
 
+    def clear_cache(self):
+        self._cache = {}
+
     def keys(self):
         all_paths = glob.glob(os.path.join(self._path, "*"))
         keys = []
@@ -51,7 +54,8 @@ class Tree:
         try:
             out = self._cache[key]
         except KeyError as err:
-            skeys = str.join(", ", self.keys())
+            skeys = [f"'{k:s}'" for k in sorted(self.keys())]
+            skeys = str.join(", ", skeys)
             msg = f"Key '{key:s}' not in [{skeys:s}]."
             raise KeyError(msg)
 

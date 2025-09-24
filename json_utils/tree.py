@@ -23,17 +23,31 @@ class Tree:
         self._cache = {}
 
     def keys(self):
-        all_paths = glob.glob(os.path.join(self._path, "*"))
-        keys = []
-        for _path in all_paths:
-            if _path.endswith(".json"):
-                file_path, file_extension = os.path.splitext(_path)
-                file_basename = os.path.basename(file_path)
-                keys.append(file_basename)
-            elif os.path.isdir(_path):
-                file_basename = os.path.basename(_path)
-                keys.append(file_basename)
-        return keys
+        if not hasattr(self, "_keys"):
+            all_paths = glob.glob(os.path.join(self._path, "*"))
+            _keys = []
+            for _path in all_paths:
+                if _path.endswith(".json"):
+                    file_path, file_extension = os.path.splitext(_path)
+                    file_basename = os.path.basename(file_path)
+                    _keys.append(file_basename)
+                elif os.path.isdir(_path):
+                    file_basename = os.path.basename(_path)
+                    _keys.append(file_basename)
+            self._keys = _keys
+
+        return self._keys
+
+    def __iter__(self):
+        self._at = -1
+        return self
+
+    def __next__(self):
+        next_at = self._at + 1
+        if next_at == len(self.keys()):
+            raise StopIteration
+        self._at = next_at
+        return self.keys()[self._at]
 
     def __len__(self):
         return len(self.keys())
